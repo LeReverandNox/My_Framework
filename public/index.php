@@ -4,5 +4,8 @@
     if (false !== Tools::getParam("page"))
     {
         $controller = Tools::getParam("page");
-        require_once("../app/controllers/" .  ucfirst($controller) . "Controller.php");
+        if (true === file_exists("../app/controllers/" .  ucfirst($controller) . "Controller.php"))
+        {
+            require_once("../app/controllers/" .  ucfirst($controller) . "Controller.php");
+        }
     }
