@@ -10,16 +10,11 @@
                 if (false !== Tools::getParam("page"))
                 {
                     $params = explode("/", Tools::getParam("page"));
-                    $controllerName = "app/controllers/" . ucfirst($params[0]) . "Controller";
+                    $controllerName = "app\controllers\\" . ucfirst($params[0]) . "Controller";
                     $actionName = $params[1] . "Action";
 
-                    if (true === file_exists("../" . $controllerName . ".php"))
-                    {
-                        require_once("../" . $controllerName . ".php");
-                        $controllerName = str_replace("/", "\\", $controllerName);
-                        $controller = new $controllerName();
-                        $controller->$actionName();
-                    }
+                    $controller = new $controllerName();
+                    $controller->$actionName();
                 }
             }
 
