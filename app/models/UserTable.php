@@ -5,6 +5,6 @@
 
         class UserTable extends Model
         {
-
+            protected $table = "user";
         }
     }

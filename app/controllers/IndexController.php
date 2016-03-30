@@ -8,8 +8,10 @@
         {
             public function indexAction()
             {
-                $u = new UserTable();
-                $this->render(__CLASS__ . ":" . "index", array("username" => "Marie"));
+                $userTable = new UserTable();
+                $user = $userTable->findOne("login = ?", array("bobbycarotte"));
+
+                $this->render(__CLASS__ . ":" . "index", $user);
             }
 
             public function aboutAction()

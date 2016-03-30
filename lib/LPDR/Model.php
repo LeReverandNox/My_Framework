@@ -87,5 +87,16 @@
                     }
                 }
             }
+
+            public function findOne($placeholders, $values)
+            {
+                $sql = "SELECT * FROM " . $this->table . " WHERE " . $placeholders;
+                $rqt = self::$pdo->prepare($sql);
+                $rqt->execute($values);
+                $res = $rqt->fetchAll(\PDO::FETCH_ASSOC);
+                $rqt->closeCursor();
+
+                return $res[0];
+            }
         }
     }
