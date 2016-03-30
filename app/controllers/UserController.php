@@ -1,7 +1,9 @@
 <?php
     namespace app\controllers
     {
-        class UserController
+        use LPDR\Controller;
+
+        class UserController extends Controller
         {
             public function connexionAction()
             {

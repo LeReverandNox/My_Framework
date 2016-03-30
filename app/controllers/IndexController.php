@@ -1,7 +1,9 @@
 <?php
     namespace app\controllers
     {
-        class IndexController
+        use LPDR\Controller;
+
+        class IndexController extends Controller
         {
             public function indexAction()
             {

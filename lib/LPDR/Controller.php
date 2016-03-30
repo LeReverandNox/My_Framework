@@ -5,7 +5,7 @@
         {
             public function render($view)
             {
-
+                echo $view;
             }
         }
     }
