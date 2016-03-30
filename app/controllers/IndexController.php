@@ -7,5 +7,10 @@
             {
                 echo __FUNCTION__;
             }
+
+            public function aboutAction()
+            {
+                echo __FUNCTION__;
+            }
         }
     }
