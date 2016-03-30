@@ -3,12 +3,12 @@
     {
         abstract class Model
         {
-            private static $hostname = "127.0.0.1";
-            private static $port = "3306" ;
-            private static $socket = null;
-            private static $username = "laidet_r";
-            private static $password = "94Wq6E3Q8DzbSWR401NO";
-            private static $dbname = "laidet_r_my_framework";
+            private static $hostname;
+            private static $port;
+            private static $socket;
+            private static $username;
+            private static $password;
+            private static $dbname;
 
             protected static $pdo;
 

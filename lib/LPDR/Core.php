@@ -6,6 +6,7 @@
             public static function run()
             {
                 self::registerAutoload();
+                self::loadConfig();
 
                 if (false !== Tools::getParam("page"))
                 {
@@ -18,7 +19,7 @@
                 }
             }
 
-            public static function registerAutoload()
+            private static function registerAutoload()
             {
                 spl_autoload_register(
                     function ($class) {
@@ -42,6 +43,25 @@
                         }
                     }
                 );
+            }
+            private static function loadConfig()
+            {
+                $ini = ".." . DIRECTORY_SEPARATOR . "app" . DIRECTORY_SEPARATOR . "config.ini";
+                if (true === file_exists($ini))
+                {
+                    $configs = parse_ini_file($ini, true);
+                    $modelConf = $configs["model"];
+
+                    Model::setHostname($modelConf["hostname"]);
+                    Model::setPort($modelConf["port"]);
+                    if (true === isset($modelConf["socket"]))
+                    {
+                        Model::setSocket($modelConf["socket"]);
+                    }
+                    Model::setUsername($modelConf["username"]);
+                    Model::setPassword($modelConf["password"]);
+                    Model::setDbname($modelConf["dbname"]);
+                }
             }
         }
     }
