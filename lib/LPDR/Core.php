@@ -22,15 +22,23 @@
             {
                 spl_autoload_register(
                     function ($class) {
-                        $class = str_replace("\\", "/", $class);
-
-                        if (true === file_exists("../" . $class . ".php"))
-                        {
-                            require_once("../" . $class . ".php");
+                        $class = ltrim($class, "\\");
+                        $file  = '';
+                        $namespace = '';
+                        if ($lastNsPos = strrpos($class, '\\')) {
+                            $namespace = substr($class, 0, $lastNsPos);
+                            $class = substr($class, $lastNsPos + 1);
+                            $file  = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
                         }
-                        if (true === file_exists("../lib/" . $class . ".php"))
+                        $file .= str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
+
+                        if (true === file_exists(".." . DIRECTORY_SEPARATOR . $file))
                         {
-                            require_once("../lib/" . $class . ".php");
+                            require_once(".." . DIRECTORY_SEPARATOR . $file);
+                        }
+                        if (true === file_exists(".." . DIRECTORY_SEPARATOR . "lib" . DIRECTORY_SEPARATOR . $file))
+                        {
+                            require_once(".." . DIRECTORY_SEPARATOR . "lib" . DIRECTORY_SEPARATOR . $file);
                         }
                     }
                 );
