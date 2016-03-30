@@ -7,7 +7,7 @@
         {
             public function indexAction()
             {
-                echo __FUNCTION__;
+                $this->render(__CLASS__ . ":" . __FUNCTION__);
             }
 
             public function aboutAction()
