@@ -9,10 +9,10 @@
             {
                 $this->params[$key] = $value;
             }
-            public function getParam($key)
+            public function getParam($paramName)
             {
-                if (true === isset($this->params[$key])) {
-                    return $this->params[$key];
+                if (true === isset($this->params[$paramName])) {
+                    return $this->params[$paramName];
                 } else {
                     return false;
                 }
