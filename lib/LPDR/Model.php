@@ -83,7 +83,7 @@
                             self::$pdo = new \PDO("mysql:dbname=" . self::$dbname . ";host=" . self::$hostname . ";port=" . self::$port, self::$username, self::$password);
                         }
                     } catch (PDOException $e) {
-                        echo "Failed to connect to the database : " . $e;
+                        die("Failed to connect to the database : " . $e);
                     }
                 }
             }
@@ -95,6 +95,10 @@
                 $rqt->execute($values);
                 $res = $rqt->fetchAll(\PDO::FETCH_ASSOC);
                 $rqt->closeCursor();
+
+                if (true === empty($res)) {
+                    return [];
+                }
 
                 return $res[0];
             }

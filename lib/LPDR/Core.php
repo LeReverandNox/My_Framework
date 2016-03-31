@@ -5,17 +5,35 @@
         {
             public static function run()
             {
-                self::registerAutoload();
-                self::loadConfig();
+                try {
+                    self::registerAutoload();
+                    self::loadConfig();
 
-                if (false !== Tools::getParam("page"))
-                {
-                    $params = explode("/", Tools::getParam("page"));
-                    $controllerName = "app\controllers\\" . ucfirst($params[0]) . "Controller";
-                    $actionName = $params[1] . "Action";
+                    if (false !== Tools::getParam("page"))
+                    {
+                        $params = explode("/", Tools::getParam("page"));
+                        $controllerName = "app\controllers\\" . ucfirst($params[0]) . "Controller";
+                        $actionName = $params[1] . "Action";
 
-                    $controller = new $controllerName();
-                    $controller->$actionName();
+                        if (class_exists($controllerName)) {
+                            $controller = new $controllerName();
+                        } else {
+                            throw new \Exception(404);
+                        }
+
+                        if (method_exists($controller, $actionName)) {
+                            $controller->$actionName();
+                        } else {
+                            throw new \Exception(500);
+                        }
+                    }
+                } catch (\Exception $e) {
+                    if ($e->getMessage() === "404") {
+                        header("HTTP/1.1 404 Not Found");
+                    }
+                    if ($e->getMessage() === "500") {
+                        header("HTTP/1.1 500 Internal Server Error");
+                    }
                 }
             }
 
