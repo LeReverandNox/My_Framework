@@ -82,7 +82,7 @@
                         {
                             self::$pdo = new \PDO("mysql:dbname=" . self::$dbname . ";host=" . self::$hostname . ";port=" . self::$port, self::$username, self::$password);
                         }
-                    } catch (PDOException $e) {
+                    } catch (\PDOException $e) {
                         die("Failed to connect to the database : " . $e);
                     }
                 }

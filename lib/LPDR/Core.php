@@ -21,6 +21,8 @@
                             throw new \Exception(404);
                         }
 
+                        self::parseParams($controller, $params);
+
                         if (method_exists($controller, $actionName)) {
                             $controller->$actionName();
                         } else {
@@ -79,6 +81,20 @@
                     Model::setUsername($modelConf["username"]);
                     Model::setPassword($modelConf["password"]);
                     Model::setDbname($modelConf["dbname"]);
+                }
+            }
+
+            private static function parseParams($controller, $params)
+            {
+                if (count($params) > 2)  {
+                    for ($i = 2; $i < count($params); $i += 2)
+                    {
+                        if (true === isset($params[$i + 1]) && false === empty($params[$i + 1])) {
+                            $key = $params[$i];
+                            $value = $params[$i +1];
+                            $controller->setParam($key, $value);
+                        }
+                    }
                 }
             }
         }

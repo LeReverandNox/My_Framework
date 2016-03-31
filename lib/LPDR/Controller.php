@@ -3,6 +3,21 @@
     {
         abstract class Controller
         {
+            protected $params = array();
+
+            public function setParam($key, $value)
+            {
+                $this->params[$key] = $value;
+            }
+            public function getParam($key)
+            {
+                if (true === isset($this->params[$key])) {
+                    return $this->params[$key];
+                } else {
+                    return false;
+                }
+            }
+
             public function render($view, $items = null)
             {
                 $params = explode(":", $view);
