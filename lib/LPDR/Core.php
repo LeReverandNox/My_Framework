@@ -9,25 +9,31 @@
                     self::registerAutoload();
                     self::loadConfig();
 
-                    if (false !== Tools::getParam("page"))
-                    {
-                        $params = explode("/", Tools::getParam("page"));
+                    $params = explode("/", Tools::getParam("page"));
+
+                    if (true === empty($params[0])) {
+                        $controllerName = "app\controllers\\" . ucfirst(_DEFAULT_CONTROLLER_) . "Controller";
+                    } else {
                         $controllerName = "app\controllers\\" . ucfirst($params[0]) . "Controller";
+                    }
+                    if (true === empty($params[1])) {
+                        $actionName = _DEFAULT_ACTION_ . "Action";
+                    } else {
                         $actionName = $params[1] . "Action";
+                    }
 
-                        if (class_exists($controllerName)) {
-                            $controller = new $controllerName();
-                        } else {
-                            throw new \Exception(404);
-                        }
+                    if (class_exists($controllerName)) {
+                        $controller = new $controllerName();
+                    } else {
+                        throw new \Exception(404);
+                    }
 
-                        self::parseParams($controller, $params);
+                    self::parseParams($controller, $params);
 
-                        if (method_exists($controller, $actionName)) {
-                            $controller->$actionName();
-                        } else {
-                            throw new \Exception(500);
-                        }
+                    if (method_exists($controller, $actionName)) {
+                        $controller->$actionName();
+                    } else {
+                        throw new \Exception(500);
                     }
                 } catch (\Exception $e) {
                     if ($e->getMessage() === "404") {
@@ -71,6 +77,7 @@
                 {
                     $configs = parse_ini_file($ini, true);
                     $modelConf = $configs["model"];
+                    $constConf = $configs["const"];
 
                     Model::setHostname($modelConf["hostname"]);
                     Model::setPort($modelConf["port"]);
@@ -81,6 +88,11 @@
                     Model::setUsername($modelConf["username"]);
                     Model::setPassword($modelConf["password"]);
                     Model::setDbname($modelConf["dbname"]);
+
+                    foreach ($constConf as $key => $value)
+                    {
+                        define($key, $value);
+                    }
                 }
             }
 
