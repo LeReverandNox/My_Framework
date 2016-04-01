@@ -74,7 +74,7 @@
 
                     Model::setHostname($modelConf["hostname"]);
                     Model::setPort($modelConf["port"]);
-                    if (true === isset($modelConf["socket"]))
+                    if (false === empty($modelConf["socket"]))
                     {
                         Model::setSocket($modelConf["socket"]);
                     }
