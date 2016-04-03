@@ -11,7 +11,7 @@
                 $userTable = new UserTable();
                 $user = $userTable->findOne("login = ?", array("bobbycarotte"));
 
-                $this->render(__CLASS__ . ":" . "index", $user);
+                $this->render(__CLASS__ . ":" . "index", array("user" => $user, "template_motor" => "Twig"));
             }
 
             public function aboutAction()
