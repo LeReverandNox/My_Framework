@@ -44,7 +44,7 @@
                 echo $buffer;
             }
             */
-            public function render($view, $items = null)
+            public function render($view, $items = array())
             {
                 $params = explode(":", $view);
                 $controllerName = explode("\\", $params[0]);

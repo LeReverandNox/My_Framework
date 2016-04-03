@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Check DAT Crud !</title>
+</head>
+<body>
+<h1>Welcome to my CRUD</h1>
+<table>
+<tr>
+    <th>Firstname</th>
+    <th>Lastname</th>
+    <th>Login</th>
+    <th>Email</th>
+</tr>
+    {% for user in users %}
+    <tr>
+        <td>{{ user.firstname }}</td>
+        <td>{{ user.lastname }}</td>
+        <td>{{ user.login }}</td>
+        <td>{{ user.email }}</td>
+        <td><a href="edit">Edit</a></td>
+        <td><a href="delete/id/{{ user.user_id }}">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+<a href="add">Add an user</a>
+</body>
+</html>

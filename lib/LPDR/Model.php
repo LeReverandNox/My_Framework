@@ -102,5 +102,29 @@
 
                 return $res[0];
             }
+
+            public function findAll()
+            {
+                $sql = "SELECT * FROM " . $this->table;
+                $rqt = self::$pdo->prepare($sql);
+                $rqt->execute();
+                $res = $rqt->fetchAll(\PDO::FETCH_ASSOC);
+                $rqt->closeCursor();
+
+                if (true === empty($res)) {
+                    return [];
+                }
+
+                return $res;
+            }
+
+            public function deleteOne($id)
+            {
+                $sql = "DELETE FROM " . $this->table . " WHERE " . $this->table . "_id = ?";
+                $rqt = self::$pdo->prepare($sql);
+                $rqt->execute(array($id));
+
+                return true;
+            }
         }
     }
