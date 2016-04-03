@@ -10,6 +10,7 @@
             private $lastname;
             private $login;
             private $email;
+            private $id;
 
             public function getFirstname()
             {
@@ -47,11 +48,29 @@
                 $this->email = $email;
             }
 
+            public function getId()
+            {
+                return $this->id;
+            }
+            public function setId($id)
+            {
+                $this->id = $id;
+            }
+
             public function insert()
             {
                 $sql = "INSERT INTO " . $this->table . "(firstname, lastname, login, email) VALUES(?, ?, ?, ?)";
                 $rqt = self::$pdo->prepare($sql);
                 $rqt->execute(array($this->firstname, $this->lastname, $this->login, $this->email));
+
+                return true;
+            }
+
+            public function update()
+            {
+                $sql = "UPDATE " . $this->table . " SET firstname = ?, lastname = ?, login = ?, email = ? WHERE user_id = ?";
+                $rqt = self::$pdo->prepare($sql);
+                $rqt->execute(array($this->firstname, $this->lastname, $this->login, $this->email, $this->id));
 
                 return true;
             }

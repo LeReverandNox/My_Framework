@@ -43,5 +43,36 @@
                 }
                 $this->render(__CLASS__ . ":" . "add");
             }
+
+            public function editAction()
+            {
+                if (false !== $this->getParam("id"))
+                {
+                    $UserTable = new UserTable();
+                    $user = $UserTable->findOne("user_id = ?", array($this->getParam("id")));
+
+                    if (false !== Tools::getParam("edit"))
+                    {
+                        $user = new UserTable();
+                        $user->setId($this->getParam("id"));
+                        $user->setFirstname(Tools::getParam("firstname"));
+                        $user->setLastname(Tools::getParam("lastname"));
+                        $user->setLogin(Tools::getParam("login"));
+                        $user->setEmail(Tools::getParam("email"));
+
+                        $user->update();
+
+                        header("Location: ../../list");
+                        return true;
+                    }
+
+                    $this->render(__CLASS__ . ":" . "edit", $user);
+                }
+                else
+                {
+                    header("Location: ../../list");
+                    return false;
+                }
+            }
         }
     }

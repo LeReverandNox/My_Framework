@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit an user</title>
+</head>
+<body>
+<h1>Edit an user !</h1>
+<form method="POST" action="">
+    <ul>
+        <li>
+            <label for="firstname">Firstname : </label>
+            <input type="text" name="firstname" id="firstname"  value="{{ firstname }}" />
+        </li>
+        <li>
+            <label for="lastname">Lastname : </label>
+            <input type="text" name="lastname" id="lastname" value="{{ lastname }}" />
+        </li>
+        <li>
+            <label for="login">Login : </label>
+            <input type="text" name="login" id="login" value="{{ login }}" />
+        </li>
+        <li>
+            <label for="email">Email : </label>
+            <input type="text" name="email" id="email" value="{{ email }}" />
+        </li>
+        <li>
+            <input type="submit" name="edit" value="Edit" />
+        </li>
+    </ul>
+</form>
+</body>
+</html>
