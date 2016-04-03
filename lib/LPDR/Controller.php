@@ -18,6 +18,8 @@
                 }
             }
 
+            /*
+            ** Ancienne methode render pour les vues dynamiques, avant d'implémenter Twig
             public function render($view, $items = null)
             {
                 $params = explode(":", $view);
@@ -40,6 +42,20 @@
                 ob_clean();
 
                 echo $buffer;
+            }
+            */
+            public function render($view, $items = null)
+            {
+                $params = explode(":", $view);
+                $controllerName = explode("\\", $params[0]);
+                $controllerName = $controllerName[count($controllerName) - 1];
+                $viewFolder = (".." . DIRECTORY_SEPARATOR . "app" . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . $controllerName);
+                $viewFilename = $params[1] . ".html";
+
+                $loader = new \Twig_Loader_Filesystem($viewFolder);
+                $twig = new \Twig_Environment($loader);
+
+                echo $twig->render($viewFilename, $items);
             }
         }
     }
